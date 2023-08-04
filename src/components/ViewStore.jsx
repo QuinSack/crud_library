@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Container, Row, Table } from 'react-bootstrap'
 
 const ViewStore = () => {
+    const [books, setBooks] = useState([]);
   return (
     <Container style={{marginTop: '20px'}}>
         <button style={{marginBottom: '10px'}}>Refresh</button>
