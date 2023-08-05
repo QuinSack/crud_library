@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react'
 import { Container, Row, Table } from 'react-bootstrap'
-import {getDocs, collection} from 'firebase/firestore'
+import {getDocs, collection, deleteDoc, doc} from 'firebase/firestore'
 import {db} from '../configs/firebase'
 
 const ViewStore = () => {
@@ -21,6 +21,17 @@ const ViewStore = () => {
         }
         }
     
+    //delete book from store
+    const deleteBook = async (id) => {
+        const docRef = doc(db, "books", id);
+        try{
+            const deleteBookItem = await deleteDoc(docRef);
+            console.log(deleteBookItem);
+        }catch(err){
+            console.error(err);
+        }
+    }
+    
     useEffect(() => {
         getBooks();
     },[])
@@ -28,6 +39,7 @@ const ViewStore = () => {
     useEffect(() => {
         console.log(books);
     },[books])
+
 
   return (
     <Container style={{marginTop: '20px'}}>
@@ -52,7 +64,7 @@ const ViewStore = () => {
                             <td>{book.data.author}</td>
                             <td>
                                 <button style={{backgroundColor: 'gray', color: 'white'}}>Edit</button>
-                                <button style={{backgroundColor: 'red', color: 'white'}}>Delete</button>
+                                <button style={{backgroundColor: 'red', color: 'white'}} onClick={()=>deleteBook(book.id)}>Delete</button>
                             </td>
                         </tr>
                         })
