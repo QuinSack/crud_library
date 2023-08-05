@@ -5,6 +5,7 @@ import {db} from '../configs/firebase'
 
 const ViewStore = () => {
     const [books, setBooks] = useState([]);
+    //const [bookCount, setBookCount] = useState(0);
 
     const getBooks = async() => {
         const bookscollectionref = collection(db, "books");
@@ -31,6 +32,7 @@ const ViewStore = () => {
   return (
     <Container style={{marginTop: '20px'}}>
         <button style={{marginBottom: '10px'}} onClick={() => getBooks()}>Refresh</button>
+        <h4><strong>AVAILABLE BOOKS</strong></h4>
         <Row>
             <Table striped bordered hover size="sm">
                 <thead>
@@ -42,28 +44,10 @@ const ViewStore = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    <tr style={{textAlign: 'center'}}>
-                        <td>1</td>
-                        <td>Mark</td>
-                        <td>Otto</td>
-                        <td>
-                            <button style={{backgroundColor: 'gray', color: 'white'}}>Edit</button>
-                            <button style={{backgroundColor: 'red', color: 'white'}}>Delete</button>
-                        </td>
-                    </tr>
-                    <tr style={{textAlign: 'center'}}>
-                        <td>2</td>
-                        <td>Jacob</td>
-                        <td>Thornton</td>
-                        <td>
-                            <button style={{backgroundColor: 'gray', color: 'white'}}>Edit</button>
-                            <button style={{backgroundColor: 'red', color: 'white'}}>Delete</button>
-                        </td>
-                    </tr>
                     {
-                        books.map((book) => {
+                        books.map((book, index) => {
                             return <tr style={{textAlign: 'center'}}>
-                            <td>2</td>
+                            <td>{index + 1}</td>
                             <td>{book.data.title}</td>
                             <td>{book.data.author}</td>
                             <td>
